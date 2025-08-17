@@ -1,0 +1,30 @@
+{
+<<<<<<< HEAD
+  "name": "assignment-2",
+=======
+  "name": "masai-backend",
+>>>>>>> 573dca29579af3700becd11b6ddc3cd65c185d4e
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+<<<<<<< HEAD
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+=======
+  "author": "ashok",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "boxen": "^5.1.2",
+    "express": "^5.1.0",
+    "is-even": "^1.0.0",
+    "nodemon": "^3.1.10"
+>>>>>>> 573dca29579af3700becd11b6ddc3cd65c185d4e
+  }
+}
