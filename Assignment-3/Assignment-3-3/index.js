@@ -6,7 +6,7 @@ const PORT = 3000;
 app.use(express.json());
 
 const DB_File = require("./db.json");
-const { error } = require("console");
+const { error, log } = require("console");
 
 const readDB = ()=>{
     const data = fs.readFileSync(DB_File,"utf-8");
@@ -63,5 +63,70 @@ app.get("dishes/:id",(req,res)=>{
 // update dish by id
 
 app.put("/dishes/:id",(req,res)=>{
+    try{
+        const db = readDB();
+        const dishidx = db.dishes.findIndex(d => d.id === req.params.id);
+        if(dishidx === -1){
+            res.status(404).json({message:" Dish not not found!!"})
+        }
+
+        db.dishes[dishidx] = {...db.dishes[dishidx],...req.body};
+        writeDB(db);
+
+        res.status(200).json({message:"Dish Updated Successfully!!",dish : db.dishes[dishidx]});
+    }catch(err){
+        res.status(500).json({message:"Internal Server Errr..."});
+    }
+})
+
+// delete dish by id
+
+app.delete("/dishes/:id",(req,res)=>{
+    try{
+        const db = readDB();
+        const newDesh = db.dishes.filter(d => d.id != req.params.id);
+
+        if(newDesh.length === db.dishes.length){
+            res.status(404).json({message:"Dish Not Found!!"});
+        }
+
+        db.dishes = newDesh;
+        writeDB(db);
+        res.status(200).json({message:"Dish Deleted Successfully!!"})
+    }catch(err){
+        res.status(500).json({message:"Server Error"});
+    }
+})
+
+app.get("/dishes/get",(req,res)=>{
+    try{
+        const {name} = req.query;
+
+        if(!name){
+            return res.status(400).json({message:"Dish query is required"});
+        }
+
+        const db = readDB();
+
+        const result = db.dishes.filter(d => d.name.toLowerCase().includes(name.toLocaleLowerCase()));
+
+        if(result.length == 0){
+            return res.status(400).json({message:"No dish Found!!"})
+        }
+
+        res.status(200).json(result);
+    }catch(err){
+        res.status(404).json({message:"Server Error!!"});
+    };
+});
+
+// undefind routs
+
+app.use((req,res)=>{
+    res.status(404).json({message:"404 not found!!"});
+});
+
+app.listen(PORT,()=>{
+    console.log(`Server is running at ${PORT}`);
     
 })
