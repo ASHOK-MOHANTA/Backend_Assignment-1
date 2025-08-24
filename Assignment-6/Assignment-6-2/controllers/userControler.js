@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../model/User");
 
 // Route 1: Create User
 exports.addUser = async (req, res, next) => {

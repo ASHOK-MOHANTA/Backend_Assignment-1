@@ -1,10 +1,10 @@
 const express = require("express");
-const connectDB = require("./config/db");
+const connectDB = require("./configs/db");
 const userRoutes = require("./routes/userRoutes");
-const errorHandler = require("./middleware/errorHandler");
+const errorHandler = require("./middleware/errorHandeler");
 
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 
 app.use(express.json());
 
