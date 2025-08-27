@@ -1,0 +1,90 @@
+
+// 1. Find the total amount spent by each customer
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customerId",
+      totalSpent: { $sum: "$amount" }
+    }
+  }
+])
+// Expected Output:
+// [
+//   { "_id": "C1001", "totalSpent": 800 },
+//   { "_id": "C1002", "totalSpent": 2000 },
+//   { "_id": "C1003", "totalSpent": 700 },
+//   { "_id": "C1004", "totalSpent": 400 },
+//   { "_id": "C1005", "totalSpent": 900 }
+// ]
+
+
+// 2. Retrieve order details along with corresponding customer information
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customerDetails"
+    }
+  }
+])
+// Expected Output Example:
+// {
+//   "_id": 1,
+//   "customerId": "C1001",
+//   "amount": 500,
+//   "product": "Laptop",
+//   "customerDetails": [
+//     { "_id": "C1001", "name": "Alice", "city": "New York" }
+//   ]
+// }
+
+
+// 3. Find orders where the amount is greater than Rs. 500
+db.orders.aggregate([
+  { $match: { amount: { $gt: 500 } } }
+])
+// Expected Output:
+// [
+//   { "_id": 2, "customerId": "C1002", "amount": 1200, "product": "Phone" },
+//   { "_id": 4, "customerId": "C1003", "amount": 700, "product": "Monitor" },
+//   { "_id": 6, "customerId": "C1002", "amount": 800, "product": "Tablet" },
+//   { "_id": 7, "customerId": "C1005", "amount": 900, "product": "Smartwatch" }
+// ]
+
+
+// 4. Calculate the average order amount per customer
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customerId",
+      avgOrderAmount: { $avg: "$amount" }
+    }
+  }
+])
+// Expected Output:
+// [
+//   { "_id": "C1001", "avgOrderAmount": 400 },
+//   { "_id": "C1002", "avgOrderAmount": 1000 },
+//   { "_id": "C1003", "avgOrderAmount": 700 },
+//   { "_id": "C1004", "avgOrderAmount": 400 },
+//   { "_id": "C1005", "avgOrderAmount": 900 }
+// ]
+
+
+// 5. Retrieve all orders with customer details, ensuring each order has an associated customer record
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customerDetails"
+    }
+  },
+  { $match: { customerDetails: { $ne: [] } } }
+])
+// Expected Output:
+// All 7 orders, each containing its associated customer details
+
