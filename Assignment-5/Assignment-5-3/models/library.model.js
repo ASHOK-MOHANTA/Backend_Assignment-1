@@ -6,7 +6,7 @@ const librarySchema = new mongoose.Schema(
     author: { type: String, required: true },
 
     // business logic will ensure these string statuses
-    status: { type: String, default: "available" }, // "available" | "borrowed" | "reserved" (logic-only)
+    status: { type: String, default: "available" }, // "available" | "borrowed" | "reserved"
 
     borrowerName: { type: String, default: null },
     borrowDate: { type: Date, default: null },
