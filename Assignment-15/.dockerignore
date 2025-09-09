@@ -1,0 +1,21 @@
+# Node modules
+node_modules
+
+# Logs
+npm-debug.log
+
+# Git files
+.git
+.gitignore
+
+# Docker build files
+Dockerfile
+.dockerignore
+
+# Environment variables
+.env
+
+# Tests and dev tools
+tests
+.vscode
+.DS_Store
