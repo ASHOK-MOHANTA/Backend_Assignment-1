@@ -1,0 +1,23 @@
+1. What is Artificial Intelligence (AI)?
+
+AI is the ability of machines to perform tasks that normally require human intelligence, like problem-solving, decision-making, understanding language, or recognizing patterns.
+
+2. What are Large Language Models (LLMs)? How do they work?
+
+LLMs are AI models trained on massive amounts of text to understand and generate human-like language. They work by predicting the next word in a sequence using deep learning techniques, mainly the Transformer architecture.
+
+3. What is the difference between Traditional AI and Generative AI?
+
+Traditional AI is mostly rule-based and focused on specific tasks like classification or predictions. Generative AI, on the other hand, can actually create new content such as text, images, or even music.
+
+4. Explain the concept of “prompting” in the context of LLMs. Why is it important?
+
+Prompting means giving instructions or input to a language model. It’s important because the way you frame the prompt directly affects the quality, style, and accuracy of the model’s response.
+
+5. What is the role of "tokens" in a language model, and how do they impact the output?
+
+Tokens are the chunks of text (like words or parts of words) that a model processes. The number of tokens affects how much context the model can handle and how long or detailed the output can be.
+
+6. What are some limitations or risks of using Generative AI models like ChatGPT?
+
+Generative AI can sometimes give wrong information, show bias, or “hallucinate.” There are also risks like misuse for misinformation, over-reliance without fact-checking, and concerns about privacy and ethics.
