@@ -1,41 +1,30 @@
 const express = require("express");
-const app = express();
+const connectToDB = require("./configs/mongos_config");
+const LMSRouter = require("./routes/lms_routes");
 require("dotenv").config();
 const PORT = process.env.PORT || 3000
-const ConnectToDb = require("./configs/mongoDb_Config");
-const UserRouter = require("./routes/user_Routes");
-const TodoRouter = require("./routes/todo_Router");
-app.use(express.json());
+const app = express();
+app.use(express.json()); // body perser middleware
+connectToDB();
 
 
-ConnectToDb();
-app.get("/test",(req,res)=>{
-    try {
-        res.status(200).json({message:"This is test route"})
-    } catch (error) {
-        res.status(500).json({message:"Something Went Wrong"})
-    }
-})
-
-/// User Router
-
-app.use("/users",UserRouter)
-
-/// Todo Router
-
-app.use("/todos",TodoRouter)
-
-// handling undefined routes
-
-// app.use((req,res)=>{
-//     try {
-//         res.status(200).json({message:"This is test route"})
-//     } catch (error) {
-//         res.status(500).json({message:"Something Went Wrong"})
-//     }
-// })
+// This is test Route
+app.get("/",(req,res)=>{
+    res.status(200).json({message:"This is a test Route"});
+});
 
 
-app.listen(PORT,(req,res)=>{
-    console.log("Server is running at",PORT);
+// LMS Routes
+
+app.use("/lms",LMSRouter);
+
+// This is Undefined Routes
+app.use((req,res)=>{
+    res.status(404).json({message:"Undefined Routes"});
+});
+
+
+
+app.listen(PORT,()=>{
+    console.log("Server Is Running at",PORT);
 })
